@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mashilye - Продаж Porsche</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 36px;
+        }
+
+        .site-title {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .car {
+            display: inline-block;
+            width: 300px;
+            margin: 20px;
+            text-align: center;
+            border: 1px solid white;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .car:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .cart h2 {
+            margin: 0;
+        }
+
+        .cart-items {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart-items li {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .checkout {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #FFD700;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #FFC107;
+            transform: scale(1.05);
+        }
+
+        img {
+            border-radius: 10px;
+        }
+
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="site-title">Mashilye</div>
+    <h1>Продаж Porsche</h1>
+    <nav>
+        <a href="#buy">Купити</a>
+        <a href="#about">Про нас</a>
+        <a href="#contact">Контакти</a>
+    </nav>
+
+    <div class="cart">
+        <h2>Кошик</h2>
+        <ul class="cart-items" id="cartItems"></ul>
+        <div class="checkout">
+            <strong>Разом:</strong> <span id="totalPrice">0</span> грн
+        </div>
+    </div>
+
+    <section id="buy">
+        <h2>Наші автомобілі</h2>
+        <div class="car" onclick="addToCart('Porsche 911', 2500000)">
+            <img src="https://storage.googleapis.com/bossauto-images-prod/images/image_1624448131341.jpg" alt="Porsche 911" width="250">
+            <h3>Porsche 911</h3>
+            <p>Ціна: 2,500,000 грн</p>
+        </div>
+        <div class="car" onclick="addToCart('Porsche Cayenne', 3000000)">
+            <img src="https://bestparts.kiev.ua/content/uploads/images/porsche-cayenne-gts-2025-1.jpg" alt="Porsche Cayenne" width="250">
+            <h3>Porsche Cayenne</h3>
+            <p>Ціна: 3,000,000 грн</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Контакти</h2>
+        <p>Email: davidonlayn@gmail.com</p>
+        <p>Телефон: +380677508433</p>
+    </section>
+
+    <footer>&copy; 2024 Mashilye. Усі права захищені.</footer>
+
+    <script>
+        let total = 0;
+        const cartItems = document.getElementById('cartItems');
+        const totalPriceElement = document.getElementById('totalPrice');
+
+        function addToCart(carName, price) {
+            const newItem = document.createElement('li');
+            newItem.innerHTML = `${carName} - ${price} грн <button class='remove-btn' onclick='removeFromCart(this, ${price})'>Видалити</button>`;
+            cartItems.appendChild(newItem);
+            total += price;
+            updateTotal();
+        }
+
+        function removeFromCart(button, price) {
+            const item = button.parentElement;
+            cartItems.removeChild(item);
+            total -= price;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            totalPriceElement.textContent = total;
+        }
+    </script>
+</body>
+
+</html>
